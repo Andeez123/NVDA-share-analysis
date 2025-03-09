@@ -22,9 +22,15 @@ with engine.connect() as connection:
 
     # Fetch all rows
     rows = result.fetchall()
-    
-df = pd.DataFrame(rows, columns=['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'], index=None)
-print(df.head())
 
-print('Script executed succesfully')
+print('Data fetched succesfully')
+
+df = pd.DataFrame(rows, columns=['Date', 'Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume'], index=None)
+
+df['Returns'] = df['Close'].pct_change()
+
+plt.figure(figsize=(16, 10))
+plt.hist(df['Returns'], density=True, bins = 200)
+plt.show()
+
 
