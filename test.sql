@@ -1,7 +1,2 @@
-CREATE TABLE Persons (
-    PersonID int,
-    LastName varchar(255),
-    FirstName varchar(255),
-    Address varchar(255),
-    City varchar(255)
-);
+-- ignore the errors in this file
+select * from nvda_stock_db.`historical stock data`;
