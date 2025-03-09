@@ -28,7 +28,7 @@ sql_script = read_sql_file('test.sql')
 df = pd.read_csv('NVDA historical.csv')
 print("Writing to MySQL Database")
 with engine.connect() as connection:
-    df.to_sql('Historical Stock Data', connection, index=False, chunksize=10000)
+    df.to_sql('Historical Stock Data', connection, if_exists='replace', index=False, chunksize=10000)
 
 print('Script executed succesfully')
 
