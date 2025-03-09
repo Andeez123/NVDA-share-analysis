@@ -7,49 +7,55 @@ from selenium.webdriver.chrome.options import Options
 import pandas as pd
 
 options = Options()
-options.add_argument("--headless=new")
+# options.add_argument("--headless=new")
 
 #web driver setup
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
 # Navigate to the website
-driver.get('https://finance.yahoo.com/markets/stocks/gainers/')
+driver.get('https://finance.yahoo.com/quote/NVDA/history/?period1=917015400&period2=1741322781')
 
-body = driver.find_elements(By.TAG_NAME, 'tr')
-symbols = []
-names = []
-prices = []
-changes = []
-changes_percent = []
-PE_ratios = []
+body = driver.find_element(By.TAG_NAME, 'tbody')
+dates = []
+open_prices = []
+high_prices = []
+low_prices = []
+close_prices = []
+adj_closes = []
+volumes = []
 
-for elem in body:
+elements = body.find_elements(By.TAG_NAME, "tr")
+for elem in elements:
     try:
-        symbol = elem.find_element(By.XPATH, "./td[1]").text
-        name = elem.find_element(By.XPATH, "./td[2]").text
-        price = elem.find_element(By.XPATH, "./td[4]").text
-        change = elem.find_element(By.XPATH, "./td[5]").text
-        change_percent = elem.find_element(By.XPATH, "./td[6]").text
-        PE_ratio = elem.find_element(By.XPATH, "./td[10]").text
+        date = elem.find_element(By.XPATH, "./td[1]").text
+        open_price = elem.find_element(By.XPATH, "./td[2]").text
+        high_price = elem.find_element(By.XPATH, "./td[3]").text
+        low_price = elem.find_element(By.XPATH, "./td[4]").text
+        close_price = elem.find_element(By.XPATH, "./td[5]").text
+        adj_close = elem.find_element(By.XPATH, "./td[6]").text
+        volume = elem.find_element(By.XPATH, "./td[7]").text
 
-        symbols.append(symbol)
-        names.append(name)
-        prices.append(price)
-        changes.append(change)
-        changes_percent.append(change_percent)
-        PE_ratios.append(PE_ratio)
-
+        dates.append(date)
+        open_prices.append(open_price)
+        high_prices.append(high_price)
+        low_prices.append(low_price)
+        close_prices.append(close_price)
+        adj_closes.append(adj_close)
+        volumes.append(volume)
     except:
         pass
+       
+
 df = pd.DataFrame({
-    'Symbol': symbols,
-    'Name': names,
-    'Price': prices,
-    'Change': changes,
-    'Change_percent': changes_percent,
-    'PE_Ratio': PE_ratios
+    'Date': dates,
+    'Open': open_prices,
+    'High': high_prices,
+    'Low': low_prices,
+    'Close': close_prices,
+    'Adj Close': adj_closes,
+    'Volume': volumes
 })
-df.to_csv('Top_25_Gainers.csv', index=False)
+df.to_csv('NVDA 3 months.csv', index=False)
 
 driver.quit()

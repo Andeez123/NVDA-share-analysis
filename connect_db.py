@@ -5,7 +5,7 @@ user = 'root'
 password = '1234'
 host = '127.0.0.1'
 port = 3306
-database = 'online_movie_rating'
+database = 'nvda_stock_db'
 
 connection_string = f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}'
 
@@ -25,10 +25,10 @@ sql_script = read_sql_file('test.sql')
 #         if statement:  # Only execute non-empty statements
 #             connection.execute(text(statement))
 
-df = pd.read_csv('Top_25_Gainers.csv')
+df = pd.read_csv('NVDA historical.csv')
 print("Writing to MySQL Database")
 with engine.connect() as connection:
-    df.to_sql('test', connection, index=False, chunksize=10000)
+    df.to_sql('Historical Stock Data', connection, index=False, chunksize=10000)
 
 
 print('Script executed succesfully')
