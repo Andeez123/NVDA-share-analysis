@@ -39,9 +39,7 @@ df['Date'] = pd.to_datetime(df['Date']) #convert date column to datetime format
 
 #Volatility analysis:
 df_vol = df.iloc[::-1]
-# df_vol['Volatility'] = df_vol['Close'].rolling(1).std()
-# print(df_vol['Volatility'])
-
 pivot_data = df_vol.pivot(index = 'Date', columns='Ticker', values='Close')
 volatility = pivot_data.std()
-print(volatility)
+#From the calculations done here: the historical volatility of the closing price NVDA stock is 24.451147, which means that NVDA's closing 
+#price varies +-24.45 from its mean price over the dataset
