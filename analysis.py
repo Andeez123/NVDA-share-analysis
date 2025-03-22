@@ -19,27 +19,28 @@ df['Date'] = pd.to_datetime(df['Date']) #convert date column to datetime format
 
 #Time series of 5 years of closing prices:
 #obtaining 5 year data
-# df_split = df[df['Date'].between('2020-01-01', '2025-03-06')].iloc[::-1]
-# trading_days = df_split['Date']
+df_split = df[df['Date'].between('2020-01-01', '2025-03-06')].iloc[::-1]
+trading_days = df_split['Date']
 
-# fig, ax = plt.subplots(figsize=(16,10))
-# ax.plot(trading_days, df_split['Close'],label="Closing Price", color="#3498db")
-# ax.set_title("Nvidia Stock Prices with Indicators", fontsize="14", fontweight="semibold")
-# ax.set_xlim([trading_days.min(), trading_days.max()])
+fig, ax = plt.subplots(figsize=(16,10))
+ax.plot(trading_days, df_split['Close'],label="Closing Price", color="#3498db")
+ax.set_title("Nvidia Stock Prices with Indicators", fontsize="14", fontweight="semibold")
+ax.set_xlim([trading_days.min(), trading_days.max()])
 
-# ax.plot(trading_days, df_split['Open'], label = 'Returns')
+ax.plot(trading_days, df_split['Open'], label = 'Returns')
 
-# #format the plots as yearly data
-# ax = plt.gca()  # Get current axis
-# ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))  # Format as year
-# ax.xaxis.set_major_locator(mdates.YearLocator(base = 1))
+#format the plots as yearly data
+ax = plt.gca()  # Get current axis
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))  # Format as year
+ax.xaxis.set_major_locator(mdates.YearLocator(base = 1))
 
-# plt.tight_layout()
-# plt.show()
+plt.tight_layout()
+plt.show()
 
 #Volatility analysis:
 df_vol = df.iloc[::-1]
 pivot_data = df_vol.pivot(index = 'Date', columns='Ticker', values='Close')
 volatility = pivot_data.std()
+print(volatility)
 #From the calculations done here: the historical volatility of the closing price NVDA stock is 24.451147, which means that NVDA's closing 
 #price varies +-24.45 from its mean price over the dataset
