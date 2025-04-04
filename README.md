@@ -1,5 +1,5 @@
 # NVDA Stock analysis
-ML-Project is a project in which I scraped data from yahoo finance and loaded the data into a local MySQL server on my machine. Connection between my python program and the database is done using SQLalchemy. The data is then used to plot a 5-year time series visualization and is also used to conduct volatility analysis of the NVDA share price. 
+ML-Project is a project in which I scraped data from yahoo finance and loaded the data into a local MySQL database on my machine. Connection between my python program and the database is done using SQLalchemy. The data is then used to plot a 5-year time series visualization and is also used to conduct volatility analysis of the NVDA share price. 
 
 Current Tech Stack:
 - Python, Selenium, Pandas for data extraction and manipulation
