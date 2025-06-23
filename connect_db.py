@@ -1,34 +1,26 @@
+import os
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
 import pandas as pd
 
-user = 'root'
-password = '1234'
-host = '127.0.0.1'
-port = 3306
-database = 'nvda_stock_db'
+load_dotenv()
+
+user = os.getenv('user')
+password = os.getenv('password')
+host = os.getenv('host')
+port = os.getenv('port')
+database = os.getenv('database')
 
 connection_string = f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}'
 
 #connect to database
 engine = create_engine(connection_string)
 
-def read_sql_file(file_path):
-    with open(file_path, 'r') as file:
-        sql_script = file.read()
-    return sql_script
-
-sql_script = read_sql_file('test.sql')
-
-# with engine.connect() as connection:
-#     for statement in sql_script.split(';'):
-#         statement = statement.strip()
-#         if statement:  # Only execute non-empty statements
-#             connection.execute(text(statement))
 
 df = pd.read_csv('NVDA historical.csv')
 print("Writing to MySQL Database")
 with engine.connect() as connection:
-    df.to_sql('Historical Stock Data', connection, if_exists='replace', index=False, chunksize=10000)
+    df.to_sql('3_mth_data', connection, if_exists='replace', index=False, chunksize=10000)
 
 print('Script executed succesfully')
 

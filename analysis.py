@@ -2,10 +2,10 @@ import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-plt.style.use('seaborn')
+plt.style.use('seaborn-v0_8-colorblind')
 mpl.rc('axes', titlesize=14, titleweight='semibold')
 
-df = pd.read_csv('NVDA_data.csv')
+df = pd.read_csv('NVDA 3 months.csv')
 
 df['Ticker'] = 'NVDA'
 df['Returns'] = df['Close'].pct_change() #calculate returns based on percentage change from the previous day

@@ -1,11 +1,15 @@
 from sqlalchemy import create_engine, text
 import pandas as pd
+from dotenv import load_dotenv
+import os
 
-user = 'root'
-password = '1234'
-host = '127.0.0.1'
-port = 3306
-database = 'nvda_stock_db'
+load_dotenv()
+
+user = os.getenv('user')
+password = os.getenv('password')
+host = os.getenv('host')
+port = os.getenv('port')
+database = os.getenv('database')
 
 connection_string = f'mysql+pymysql://{user}:{password}@{host}:{port}/{database}'
 
