@@ -7,5 +7,17 @@ Current Tech Stack:
 - MySQL and MySQL workbench serves as the database and database query tool
 - SQLalchemy connects the python program to the local MySQL database
 
+## Using this project:
+Run scraper.py, this file uses selenium to scrape the Nvidia stock data, from a set time period. 
+
+Extracted data includes: 
+date, opening and closing prices, high and low prices, adjusted closing prices and volume. 
+
+After scraping your desired data, the data can be written to a locally hosted mysql database using connect_db.py
+
+Reading the data is done similarly using the reading.py file
+
 ## Future Plans:
 Performing futher stock price analysis on the dataset that I have scraped. This project serves as a base for me to explore other quantitative finance related projects, such as a real-time trading bot, algorithmic trading. 
+
+The process of writing data to the database is to be improved as well, the current solution of reading from a csv file of extracted data and writing to the database is inefficient. The desired workflow would be to write the data directly to a database after the data has been extracted. 
